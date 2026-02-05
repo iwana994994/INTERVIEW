@@ -32,7 +32,7 @@ const Problem = () => {
 
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>{error}</div>
-  if (!problemOne) return <div>Nema problema (problemOne je null)</div>
+  if (!problemOne) return <div>Problem not found</div>
 
   return (
     <div>
