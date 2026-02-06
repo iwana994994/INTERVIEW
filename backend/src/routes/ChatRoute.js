@@ -8,7 +8,7 @@ router.get("/chat-token", async (req, res) => {
     const { userId } = req.query
     if (!userId) return res.status(400).json({ message: "Missing userId" })
 
-    const interviewerId = "interviewer_1"
+
 
     // 1️⃣ upsert kandidat
     await chatClient.upsertUser({
@@ -16,11 +16,7 @@ router.get("/chat-token", async (req, res) => {
       role: "user",
     })
 
-    // 2️⃣ upsert interviewer
-    await chatClient.upsertUser({
-      id: interviewerId,
-      role: "user",
-    })
+   
 
     // 3️⃣ napravi token za kandidata
     const token = chatClient.createToken(userId)
