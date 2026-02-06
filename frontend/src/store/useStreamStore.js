@@ -46,8 +46,9 @@ export const useStreamStore = create((set, get) => ({
       )
 
       // 6) Channel vezan za interview
+      const interviewerId = "interviewer_1";
       const channel = chatClient.channel("messaging", `interview-${interviewId}`, {
-        members: [user.id],
+        members: [user.id, interviewerId],
       })
       await channel.watch()
 

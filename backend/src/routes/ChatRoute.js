@@ -3,12 +3,28 @@ import { chatClient, streamClient } from "../lib/stream.js" // prilagodi putanju
 
 const router = express.Router()
 
-router.get("/chat-token", (req, res) => {
+router.get("/chat-token", async (req, res) => {
   try {
     const { userId } = req.query
     if (!userId) return res.status(400).json({ message: "Missing userId" })
 
+    const interviewerId = "interviewer_1"
+
+    // 1️⃣ upsert kandidat
+    await chatClient.upsertUser({
+      id: userId,
+      role: "user",
+    })
+
+    // 2️⃣ upsert interviewer
+    await chatClient.upsertUser({
+      id: interviewerId,
+      role: "user",
+    })
+
+    // 3️⃣ napravi token za kandidata
     const token = chatClient.createToken(userId)
+
     return res.json({ token })
   } catch (err) {
     console.error("chat-token error:", err)
